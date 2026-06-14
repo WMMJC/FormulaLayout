@@ -9,11 +9,12 @@ import Foundation
 
 extension Attr{
     // [.top(10), .bottom(-20), .left(-10)]
-    public func callAsFunction(_ c: CGFloat) -> Attr {
-        var copy = self
-        copy.constant = c
-        return copy
-    }
+#if swift(>=5.2)
+    public func callAsFunction(_ c: CGFloat) -> Attr {var copy = self;copy.constant = c;return copy;}
+#else
+    // [.top[10], .bottom[-20], .left[-10]]
+    public subscript(_ c: CGFloat) -> Attr {var copy = self;copy.constant = c;return copy;}
+#endif
 }
 
 extension [Attr]{
@@ -22,6 +23,7 @@ extension [Attr]{
      [.leading, .trailing, .bottom, .top](20)
         等同于 [.leading(20), .trailing(-20), .bottom(-20), .top(20)]
      */
+#if swift(>=5.2)
     public func callAsFunction(_ c: CGFloat) -> [Attr] {
         self.map{
             var a = $0
@@ -34,4 +36,19 @@ extension [Attr]{
             return a
         }
     }
+#else
+    // [.leading, .trailing, .bottom, .top][20]
+    public subscript(_ c: CGFloat) -> [Attr] {
+        self.map{
+            var a = $0
+            if a.attribute == .left ||  a.attribute == .top || a.attribute == .leading{
+                a.constant += (c)
+            }
+            if a.attribute == .bottom ||  a.attribute == .trailing || a.attribute == .right{
+                a.constant += (-c)
+            }
+            return a
+        }
+    }
+#endif
 }

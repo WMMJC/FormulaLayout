@@ -9,9 +9,10 @@ import Foundation
 
 extension Attr{
     // [.width(.defaultHigh)]
-    public func callAsFunction(_ p: LayoutPriority) -> Attr {
-        var copy = self
-        copy.priority = p
-        return copy
-    }
+#if swift(>=5.2)
+    public func callAsFunction(_ p: LayoutPriority) -> Attr { var copy = self;copy.priority = p;return copy;}
+#else
+    // [.width[.defaultHigh]]
+    public subscript(_ p: LayoutPriority) -> Attr { var copy = self;copy.priority = p;return copy;}
+#endif
 }

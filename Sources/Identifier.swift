@@ -13,11 +13,12 @@ import AppKit.NSLayoutConstraint
 
 extension Attr{
     // [.width("identifier")]
-    public func callAsFunction(_ i: String) -> Attr {
-        var copy = self
-        copy.identifier = i
-        return copy
-    }
+#if swift(>=5.2)
+    public func callAsFunction(_ i: String) -> Attr {var copy = self;copy.identifier = i;return copy;}
+#else
+    // [.width["identifier"]]
+    public subscript(_ i: String) -> Attr {var copy = self;copy.identifier = i;return copy;}
+#endif
 }
 
 enum IdentifierNumber{

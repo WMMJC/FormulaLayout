@@ -1,23 +1,40 @@
 [🇨🇳 中文](README.zh-CN.md) | [🇺🇸 English](README.md) 
 
 
-### ***FormulaLayout*** 提供了一种使用类似数学公式创建布局的简单且直观的方法，基于操作符的重写
+### ***FormulaLayout*** 提供了数学风格的表达式，以便直观的描述页面布局，基于操作符的重写
+
+简而言之，使用如下DSL:
+````swift
+myView.makeFormulas {
+    [.leading == .trailing] == targetView * 1.0 + 12
+}
+````
+替换它：
+````swift
+ NSLayoutConstraint(
+     item: myView, attribute: .leading, relatedBy: .equal,
+     toItem: targetView, attribute: .trailing,
+     multiplier: 1.0, constant: 12
+ )
+````
 
 # 公式关系图
 
 ````swift
 myView.makeFormulas {
-       属性     关系 目标     乘数     正负  偏移
     [Attribute] == view * multiplier + constant
 }
 
-属性:
-    [Attribute,Attribute...]        
-    [Attribute == Attribute,Attribute == Attribute...]        
-    [Attribute(priority/constant/identifier),Attribute...]
+Attribute: 
+    1. Attribute
+    2. Attribute == Attribute
+    3. Attribute(<#LayoutPriority#>)
+    4. Attribute(<#CGFloat#>)
+    5. Attribute(<#String#>)
+    6. Attribute(p:<#LayoutPriority#>,c:<#CGFloat#>,i:<#String#>)
 
-[属性]:
-    [Attribute,...](constant)
+[Attribute]:
+    [Attribute](constant)
     
 运算符: 
     == ,>=, <=, * , + , -
@@ -91,7 +108,7 @@ myView.updateFormula(identifier:"identifier"){
 # 使用环境
 
 - iOS 9.0+, macOS 10.11+
-- Swift 5.2+
+- Swift 5.0+
 
 # 安装
 

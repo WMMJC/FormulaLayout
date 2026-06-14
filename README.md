@@ -1,7 +1,22 @@
 [🇨🇳 中文](README.zh-CN.md) | [🇺🇸 English](README.md)
 
 
-### ***FormulaLayout*** This provides a simple and intuitive method for creating layouts using mathematical-style expressions, based on operator overloading.
+### ***FormulaLayout*** Provides mathematical-style expressions to intuitively describe page layouts, based on operator-based rewriting
+
+In short, use the following DSL:
+````swift
+myView.makeFormulas {
+    [.leading == .trailing] == targetView * 1.0 + 12
+}
+````
+Replace it with:
+````swift
+ NSLayoutConstraint(
+     item: myView, attribute: .leading, relatedBy: .equal,
+     toItem: targetView, attribute: .trailing,
+     multiplier: 1.0, constant: 12
+ )
+````
 
 # Formula relationship diagram
 
@@ -10,13 +25,16 @@ myView.makeFormulas {
     [Attribute] == view * multiplier + constant
 }
 
-Attribute:
-    [Attribute,Attribute...]
-    [Attribute == Attribute,Attribute == Attribute...]
-    [Attribute(priority/constant/identifier),Attribute...]
+Attribute: 
+    1. Attribute
+    2. Attribute == Attribute
+    3. Attribute(<#LayoutPriority#>)
+    4. Attribute(<#CGFloat#>)
+    5. Attribute(<#String#>)
+    6. Attribute(p:<#LayoutPriority#>,c:<#CGFloat#>,i:<#String#>)
 
 [Attribute]:
-    [Attribute,...](constant)
+    [Attribute](constant)
     
 Operator: 
     == ,>=, <=, * , + , -
@@ -91,7 +109,7 @@ myView.updateFormula(identifier:"identifier"){
 # Requirements
 
 - iOS 9.0+, macOS 10.11+
-- Swift 5.2+
+- Swift 5.0+
 
 
 # Installation

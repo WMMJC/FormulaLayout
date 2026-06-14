@@ -16,13 +16,20 @@ public typealias LayoutRelation = NSLayoutConstraint.Relation
 
 // 属性包装器
 public struct Attr {
+    // 默认：[.top]
     let attribute: LayoutAttribute
+
+    // 映射：[.top == .bottom]
+    var targetAttribute: LayoutAttribute? = nil
+    
     // [.top(.defaultHigh)]
     var priority: LayoutPriority = .required
+    
     // [.top(10)]
     var constant: CGFloat = 0.0
+    
     // [.top("identifier")]
-    var identifier: String = ""
+    var identifier: String? = nil
     
     // 更新约束的标记
     var ismultiplier = false
@@ -30,13 +37,12 @@ public struct Attr {
 }
 extension Attr{
     // [.bottom(p:.defaultHigh,c:0, i:"id")]
-    public func callAsFunction(p: LayoutPriority, c: CGFloat,i: String) -> Attr {
-        var copy = self
-        copy.identifier = i
-        copy.constant = c
-        copy.priority = p
-        return copy
-    }
+#if swift(>=5.2)
+    public func callAsFunction(p: LayoutPriority, c: CGFloat,i: String) -> Attr { var copy = self;copy.identifier = i;copy.constant = c;copy.priority = p;return copy;}
+#else
+    // [.bottom[p:.defaultHigh,c:0, i:"id"]]
+    public subscript(p: LayoutPriority, c: CGFloat,i: String) -> Attr { var copy = self;copy.identifier = i;copy.constant = c;copy.priority = p;return copy;}
+#endif
 }
 
 extension Attr{
@@ -47,8 +53,10 @@ extension Attr{
     public static let right = Attr(attribute: .right)
     public static let leading = Attr(attribute: .leading)
     public static let trailing = Attr(attribute: .trailing)
+    
     public static let width = Attr(attribute: .width)
     public static let height = Attr(attribute: .height)
+   
     public static let centerX = Attr(attribute: .centerX)
     public static let centerY = Attr(attribute: .centerY)
     
@@ -62,8 +70,9 @@ extension Attr{
     public static let multiplier = Attr(attribute: .notAnAttribute,ismultiplier: true)
 }
 
+//#if canImport(UIKit)
 //extension Attr{
-//    Margin会有默认的8间距
+//    //Margin会有默认的8间距，页边距由其layoutMargins属性定义
 //    public static let leftMargin = Attr(attribute: .leftMargin)
 //    public static let rightMargin = Attr(attribute: .rightMargin)
 //    public static let topMargin = Attr(attribute: .topMargin)
@@ -73,6 +82,7 @@ extension Attr{
 //    public static let centerXWithinMargins = Attr(attribute: .centerXWithinMargins)
 //    public static let centerYWithinMargins = Attr(attribute: .centerYWithinMargins)
 //}
+//#endif
 
 // view2 * 0.5 + 4
 public struct ViewExpr {
@@ -81,27 +91,11 @@ public struct ViewExpr {
     var constant: CGFloat = 0.0
 }
 
-// .top == .bottom
-public struct AttrMapping {
-    let source: Attr
-    let target: LayoutAttribute
-}
-
 // 约束规则
 public struct ConstraintRule {
     var sourceAttrs: [Attr]
     var relation: LayoutRelation = .equal
     var targetItem: ConstraintTarget? = nil
-    /*
-     默认：
-     场景：[.top, .leading] == view2
-     逻辑：所有的属性都去对齐 view2 的同名属性
-     
-     映射：
-     场景：[.top == .bottom, .leading == .trailing] == view2
-     逻辑：我的 .top 要对齐 view2 的 .bottom，而我的 .leading 要对齐 view2 的 .trailing
-     */
-    var targetAttrMap: [LayoutAttribute: LayoutAttribute] = [:]
     
     // 乘数[.height] == view * 1.5
     var multiplier: CGFloat = 1.0
@@ -115,9 +109,7 @@ public struct ConstraintRule {
                 assertionFailure("❌❌❌ create layout not support [.constant] or [.multiplier]")
                 return nil
             }
-            // 优先级：映射 > 默认同名属性
-            // [.top == .bottom] ?? [.top, .bottom]
-            let tAttr = targetAttrMap[attr.attribute] ?? attr.attribute
+            let tAttr = attr.targetAttribute ?? attr.attribute
             // [.top(10)](20) == view + 30 间距为10+20+30=60
             let cConstant = attr.constant + constant
             let c = NSLayoutConstraint(
@@ -125,8 +117,8 @@ public struct ConstraintRule {
                 toItem: targetItem, attribute: tAttr,
                 multiplier: multiplier, constant: cConstant
             )
-            if !attr.identifier.isEmpty{
-                c.identifier = attr.identifier
+            if let identifier = attr.identifier,!identifier.isEmpty{
+                c.identifier = identifier
             }
             c.priority = attr.priority
             return c
