@@ -38,11 +38,19 @@ public struct Attr {
 extension Attr{
     // [.bottom(p:.defaultHigh,c:0, i:"id")]
 #if swift(>=5.2)
-    public func callAsFunction(p: LayoutPriority, c: CGFloat,i: String) -> Attr { var copy = self;copy.identifier = i;copy.constant = c;copy.priority = p;return copy;}
+    public func callAsFunction(p: LayoutPriority, c: CGFloat,i: String? = nil) -> Attr { pci(p:p,c:c,i:i)}
 #else
     // [.bottom[p:.defaultHigh,c:0, i:"id"]]
-    public subscript(p: LayoutPriority, c: CGFloat,i: String) -> Attr { var copy = self;copy.identifier = i;copy.constant = c;copy.priority = p;return copy;}
+    public subscript(p: LayoutPriority, c: CGFloat,i: String? = nil) -> Attr { pci(p:p,c:c,i:i)}
 #endif
+    
+    /// 配置 优先级 / 间距 / 标识符
+    /// - Parameters:
+    ///   - p: 优先级
+    ///   - c: 间距
+    ///   - i: 标识符
+    /// - Returns: self
+    public func pci(p: LayoutPriority, c: CGFloat,i: String? = nil) -> Attr { var copy = self;copy.identifier = i;copy.constant = c;copy.priority = p;return copy;}
 }
 
 extension Attr{

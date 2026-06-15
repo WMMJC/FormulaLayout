@@ -28,13 +28,13 @@ myView.makeFormulas {
 Attribute: 
     1. Attribute
     2. Attribute == Attribute
-    3. Attribute(<#LayoutPriority#>)
-    4. Attribute(<#CGFloat#>)
-    5. Attribute(<#String#>)
-    6. Attribute(p:<#LayoutPriority#>,c:<#CGFloat#>,i:<#String#>)
+    3. Attribute(<#LayoutPriority#>) // Attribute.priority(<#LayoutPriority#>)
+    4. Attribute(<#CGFloat#>) // Attribute.constant(<#CGFloat#>)
+    5. Attribute(<#String#>) // Attribute.identifier(<#String#>)
+    6. Attribute(p:<#LayoutPriority#>,c:<#CGFloat#>,i:<#String?#>) // Attribute.pci(p:<#LayoutPriority#>,c:<#CGFloat#>,i:<#String?#>)
 
 [Attribute]:
-    [Attribute](constant)
+    [Attribute](constant) // [Attribute].edges(constant)
     
 运算符: 
     == ,>=, <=, * , + , -
