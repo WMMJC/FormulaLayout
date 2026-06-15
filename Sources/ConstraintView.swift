@@ -75,13 +75,14 @@ extension NSLayoutConstraint {
     
     @discardableResult
     public func update(multiplier:CGFloat,constant:CGFloat) -> NSLayoutConstraint{
-        NSLayoutConstraint.deactivate([self])
+        self.isActive = false
+        // NSLayoutConstraint.deactivate([self])
         let newConstraint = NSLayoutConstraint.init(item:self.firstItem!, attribute:self.firstAttribute, relatedBy:self.relation, toItem:self.secondItem, attribute:self.secondAttribute, multiplier:multiplier, constant:constant)
         newConstraint.priority = self.priority
         newConstraint.shouldBeArchived = self.shouldBeArchived
         newConstraint.identifier = self.identifier
         newConstraint.isActive = true
-        NSLayoutConstraint.activate([newConstraint])
+        // NSLayoutConstraint.activate([newConstraint])
         return newConstraint
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 extension Attr{
     // [.width(.defaultHigh)]
 #if swift(>=5.2)
-    @inlinable public func callAsFunction(_ p: LayoutPriority) -> Attr { priority(p);}
+    public func callAsFunction(_ p: LayoutPriority) -> Attr { priority(p);}
 #else
     // [.width[.defaultHigh]]
     public subscript(_ p: LayoutPriority) -> Attr { priority(p);}
