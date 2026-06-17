@@ -46,6 +46,9 @@ public func == (lhs: [Attr], rhs: CGFloat) -> ConstraintRule { ConstraintRule(so
 
 // >= 和 <= 运算
 public func >= (lhs: [Attr], rhs: ViewExpr) -> ConstraintRule { var r = lhs == rhs; r.relation = .greaterThanOrEqual; return r }
-public func <= (lhs: [Attr], rhs: ViewExpr) -> ConstraintRule { var r = lhs == rhs; r.relation = .lessThanOrEqual; return r }
 public func >= (lhs: [Attr], rhs: CGFloat) -> ConstraintRule { var r = lhs == rhs; r.relation = .greaterThanOrEqual; return r }
+public func >= (lhs: [Attr], rhs: ConstraintTarget) -> ConstraintRule { var r = lhs == rhs; r.relation = .greaterThanOrEqual; return r }
+
 public func <= (lhs: [Attr], rhs: CGFloat) -> ConstraintRule { var r = lhs == rhs; r.relation = .lessThanOrEqual; return r }
+public func <= (lhs: [Attr], rhs: ViewExpr) -> ConstraintRule { var r = lhs == rhs; r.relation = .lessThanOrEqual; return r }
+public func <= (lhs: [Attr], rhs: ConstraintTarget) -> ConstraintRule { var r = lhs == rhs; r.relation = .lessThanOrEqual; return r }

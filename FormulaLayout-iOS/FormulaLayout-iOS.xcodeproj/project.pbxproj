@@ -10,6 +10,7 @@
 		314BBEE62FD6CD7B00842140 /* FormulaLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 314BBEE52FD6CD7B00842140 /* FormulaLayout */; };
 		3151DC982FD7C39A000598B2 /* FormulaLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 3151DC972FD7C39A000598B2 /* FormulaLayout */; };
 		31677E862FD7C81200D0CBF6 /* FormulaLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 31677E852FD7C81200D0CBF6 /* FormulaLayout */; };
+		316C39582FE121BA00A5FFE0 /* FormulaLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 316C39572FE121BA00A5FFE0 /* FormulaLayout */; };
 		318918642FD6A7B60093D77B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318918632FD6A7B60093D77B /* AppDelegate.swift */; };
 		318918662FD6A7B60093D77B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318918652FD6A7B60093D77B /* SceneDelegate.swift */; };
 		318918682FD6A7B60093D77B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318918672FD6A7B60093D77B /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 				31677E862FD7C81200D0CBF6 /* FormulaLayout in Frameworks */,
 				314BBEE62FD6CD7B00842140 /* FormulaLayout in Frameworks */,
 				3151DC982FD7C39A000598B2 /* FormulaLayout in Frameworks */,
+				316C39582FE121BA00A5FFE0 /* FormulaLayout in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +98,7 @@
 				314BBEE52FD6CD7B00842140 /* FormulaLayout */,
 				3151DC972FD7C39A000598B2 /* FormulaLayout */,
 				31677E852FD7C81200D0CBF6 /* FormulaLayout */,
+				316C39572FE121BA00A5FFE0 /* FormulaLayout */,
 			);
 			productName = "FormulaLayout-iOS";
 			productReference = 318918602FD6A7B60093D77B /* FormulaLayout-iOS.app */;
@@ -126,7 +129,7 @@
 			);
 			mainGroup = 318918572FD6A7B60093D77B;
 			packageReferences = (
-				31677E842FD7C81200D0CBF6 /* XCLocalSwiftPackageReference ".." */,
+				316C39562FE121BA00A5FFE0 /* XCLocalSwiftPackageReference ".." */,
 			);
 			productRefGroup = 318918612FD6A7B60093D77B /* Products */;
 			projectDirPath = "";
@@ -235,7 +238,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -292,7 +295,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -388,7 +391,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		31677E842FD7C81200D0CBF6 /* XCLocalSwiftPackageReference ".." */ = {
+		316C39562FE121BA00A5FFE0 /* XCLocalSwiftPackageReference ".." */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ..;
 		};
@@ -404,6 +407,10 @@
 			productName = FormulaLayout;
 		};
 		31677E852FD7C81200D0CBF6 /* FormulaLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FormulaLayout;
+		};
+		316C39572FE121BA00A5FFE0 /* FormulaLayout */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FormulaLayout;
 		};
