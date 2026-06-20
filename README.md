@@ -6,7 +6,7 @@
 In short, use the following DSL:
 ````swift
 myView.makeFormulas {
-    [.leading == .trailing] == targetView * 1.0 + 12
+    [.leading => .trailing] == targetView * 1.0 + 12
 }
 ````
 Replace it with:
@@ -27,7 +27,7 @@ myView.makeFormulas {
 
 Attribute: 
     1. Attribute
-    2. Attribute == Attribute
+    2. Attribute => Attribute
     3. Attribute(<#LayoutPriority#>) // Attribute.priority(<#LayoutPriority#>)
     4. Attribute(<#CGFloat#>) // Attribute.constant(<#CGFloat#>)
     5. Attribute(<#String#>) // Attribute.identifier(<#String#>)
@@ -37,7 +37,7 @@ Attribute:
     [Attribute](constant) // [Attribute].edges(constant)
     
 Operator: 
-    == ,>=, <=, * , + , -
+    =>, == ,>=, <=, * , + , -
     
 ````
 
@@ -62,7 +62,7 @@ myView.makeFormulas {
 }
 // Aspect ratio: the height is twice the width
 myView.makeFormulas {
-    [.height == .width] == myView * 2
+    [.height => .width] == myView * 2
     [.width] == 100
 }
 
@@ -91,7 +91,7 @@ myView.makeFormulas {
 
 // Set the bottom and left properties of myView to the top and right properties of anotherView
 myView.makeFormulas {
-    [.bottom == .top,.left == .right] == anotherView
+    [.bottom => .top,.left => .right] == anotherView
 }
 
 // Bind identifier

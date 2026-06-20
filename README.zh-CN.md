@@ -6,7 +6,7 @@
 简而言之，使用如下DSL:
 ````swift
 myView.makeFormulas {
-    [.leading == .trailing] == targetView * 1.0 + 12
+    [.leading => .trailing] == targetView * 1.0 + 12
 }
 ````
 替换它：
@@ -27,7 +27,7 @@ myView.makeFormulas {
 
 Attribute: 
     1. Attribute
-    2. Attribute == Attribute
+    2. Attribute => Attribute
     3. Attribute(<#LayoutPriority#>) // Attribute.priority(<#LayoutPriority#>)
     4. Attribute(<#CGFloat#>) // Attribute.constant(<#CGFloat#>)
     5. Attribute(<#String#>) // Attribute.identifier(<#String#>)
@@ -37,7 +37,7 @@ Attribute:
     [Attribute](constant) // [Attribute].edges(constant)
     
 运算符: 
-    == ,>=, <=, * , + , -
+    =>, == ,>=, <=, * , + , -
     
 ````
 # 快速开始
@@ -61,7 +61,7 @@ myView.makeFormulas {
 }
 // 宽高比，height是width的2倍
 myView.makeFormulas {
-    [.height == .width] == myView * 2
+    [.height => .width] == myView * 2
     [.width] == 100
 }
 
@@ -90,7 +90,7 @@ myView.makeFormulas {
 
 // 设置myView的bottom和left等于anotherView的top和right
 myView.makeFormulas {
-    [.bottom == .top,.left == .right] == anotherView
+    [.bottom => .top,.left => .right] == anotherView
 }
 
 // 绑定identifier

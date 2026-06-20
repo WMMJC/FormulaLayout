@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     private func setupConstraints() {
         view1.makeFormulas {
             [.centerX, .centerY] == view
-            [.height("kkkkkk") == .width] == view1 * 2
+            [.height("kkkkkk") => .width] == view1 * 2
 //            [.height] == 100
             [.width("llll")] == 100
         }
@@ -48,14 +48,14 @@ class ViewController: UIViewController {
         }
         
         label.makeFormulas{
-            [.top == .bottom] == view2
+            [.top => .bottom] == view2
             [.leading] == view4
             [.trailing] == view1
             [.height] >= 20
         }
         
         view3.makeFormulas {
-            [.bottom("xxxxxx") == .top] == view1
+            [.bottom("xxxxxx") => .top] == view1
             //[.bottom == .top] == view1 - 5
             [.leading, .trailing, .top] == view.safeAreaLayoutGuide
         }
