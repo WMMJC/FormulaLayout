@@ -39,8 +39,8 @@ class FormulaLayoutTests: XCTestCase {
             // .top 等于 view2 的 top，偏移 8
             [.top] == view2 + 8
 
-            [.top(10), .bottom(-10), .leading(-10),.trailing(10)] == view2
-            //[.leading, .trailing, .bottom, .top](20) == view2
+            [.leading(10), .top(10), .bottom(-10), .trailing(-10)] == view2
+            //[.edge(10)] == view2
 
             // .left 大于等于 view2 的 left，偏移 12
             [.left] >= view2 + 12
@@ -53,7 +53,7 @@ class FormulaLayoutTests: XCTestCase {
             [.height] <= view2 * 0.5 + 4
             
             //view1 的 top 等于 view2 的 bottom，偏移 20
-            [.top == .bottom,.left == .right] == view2 + 10
+            [.top => .bottom,.left => .right] == view2 + 10
            
             if isExpanded {
                 [.height] == 300
@@ -62,7 +62,7 @@ class FormulaLayoutTests: XCTestCase {
             }
             
             // 属性标记
-            [.top("topMargin") == .bottom] == view1.safeAreaLayoutGuide
+            [.top("topMargin") => .bottom] == view1.safeAreaLayoutGuide
         }
         view1.updateFormula(identifier: "topMargin") {
             [.constant] == 1.5

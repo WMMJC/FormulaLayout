@@ -56,13 +56,13 @@ class ViewController: UIViewController {
         
         view3.makeFormulas {
             [.bottom("xxxxxx") => .top] == view1
-            //[.bottom == .top] == view1 - 5
+            //[.bottom => .top] == view1 - 5
             [.leading, .trailing, .top] == view.safeAreaLayoutGuide
         }
 
         view4.makeFormulas {
             //[.leading(20), .trailing(-20), .bottom(-20), .top(20)] == view3
-            [.leading, .trailing, .bottom, .top](20) == view3
+            [.edge(20)] == view3
         }
         
     }

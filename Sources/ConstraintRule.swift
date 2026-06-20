@@ -19,7 +19,7 @@ public struct Attr {
     // 默认：[.top]
     let attribute: LayoutAttribute
 
-    // 映射：[.top == .bottom]
+    // 映射：[.top => .bottom]
     var targetAttribute: LayoutAttribute? = nil
     
     // [.top(.defaultHigh)]
@@ -34,6 +34,9 @@ public struct Attr {
     // 更新约束的标记
     var ismultiplier = false
     var isconstant = false
+    
+    // 内边距
+    var isedge = false
 }
 extension Attr{
 #if swift(>=5.2)
@@ -74,6 +77,9 @@ extension Attr{
     
     public static let lastBaseline = Attr(attribute: .lastBaseline)
     public static let firstBaseline = Attr(attribute: .firstBaseline)
+    // 视图距离某个试图四周的间距，也就是内边距
+    // .edge(10) == [.leading(10),.top(10),.trailing(-10),.bottom(-10)]
+    public static let edge = Attr(attribute: .notAnAttribute,isedge: true)
 }
 
 extension Attr{
@@ -116,25 +122,35 @@ public struct ConstraintRule {
     var constant: CGFloat = 0.0
     
     func generate(for sourceView: ConstraintView) -> [NSLayoutConstraint] {
-        return sourceAttrs.compactMap { attr in
-            if attr.ismultiplier || attr.isconstant{
+        @inline(__always)
+        func make(_ attr: Attr, priority: UILayoutPriority, identifier: String?) -> NSLayoutConstraint? {
+            if attr.ismultiplier || attr.isconstant {
                 assertionFailure("❌❌❌ create layout not support [.constant] or [.multiplier]")
                 return nil
             }
-            let tAttr = attr.targetAttribute ?? attr.attribute
-            // [.top(10)](20) == view + 30 间距为10+20+30=60
-            let cConstant = attr.constant + constant
-            let c = NSLayoutConstraint(
-                item: sourceView, attribute: attr.attribute, relatedBy: relation,
-                toItem: targetItem, attribute: tAttr,
-                multiplier: multiplier, constant: cConstant
-            )
-            if let identifier = attr.identifier,!identifier.isEmpty{
-                c.identifier = identifier
-            }
-            c.priority = attr.priority
-            return c
+            return NSLayoutConstraint(
+                item: sourceView,
+                attribute: attr.attribute,
+                relatedBy: relation,
+                toItem: targetItem,
+                attribute: attr.targetAttribute ?? attr.attribute,
+                multiplier: multiplier,
+                constant: attr.constant + constant,
+                priority: priority,
+                identifier: identifier)
         }
+
+        if let edge = sourceAttrs.first(where: { $0.isedge }) {
+            //上左为正，右下为负
+            let attrs: [Attr] = [
+                .leading(edge.constant),
+                .top(edge.constant),
+                .trailing(-edge.constant),
+                .bottom(-edge.constant)
+            ]
+            return attrs.compactMap { make($0, priority: edge.priority, identifier: edge.identifier) }
+        }
+        return sourceAttrs.compactMap{ make($0, priority: $0.priority, identifier: $0.identifier) }
     }
     
     func update(for targetLayout: NSLayoutConstraint) -> [NSLayoutConstraint] {

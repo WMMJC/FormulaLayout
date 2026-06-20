@@ -85,4 +85,21 @@ extension NSLayoutConstraint {
         // NSLayoutConstraint.activate([newConstraint])
         return newConstraint
     }
+    public convenience init(
+        item view1: Any,
+        attribute attr1: NSLayoutConstraint.Attribute,
+        relatedBy relation: NSLayoutConstraint.Relation,
+        toItem view2: Any?,
+        attribute attr2: NSLayoutConstraint.Attribute,
+        multiplier: CGFloat = 1.0,
+        constant: CGFloat = 0.0,
+        priority: UILayoutPriority = .required,
+        identifier: String? = nil
+    ) {
+        self.init(item: view1, attribute: attr1, relatedBy: relation, toItem: view2, attribute: attr2, multiplier: multiplier, constant: constant)
+        self.priority = priority
+        if let identifier,!identifier.isEmpty{
+            self.identifier = identifier
+        }
+    }
 }

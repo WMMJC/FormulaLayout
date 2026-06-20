@@ -32,9 +32,6 @@ Attribute:
     4. Attribute(<#CGFloat#>) // Attribute.constant(<#CGFloat#>)
     5. Attribute(<#String#>) // Attribute.identifier(<#String#>)
     6. Attribute(p:<#LayoutPriority#>,c:<#CGFloat#>,i:<#String?#>) // Attribute.pci(p:<#LayoutPriority#>,c:<#CGFloat#>,i:<#String?#>)
-
-[Attribute]:
-    [Attribute](constant) // [Attribute].edges(constant)
     
 Operator: 
     =>, == ,>=, <=, * , + , -
@@ -52,7 +49,7 @@ myView.makeFormulas {
 
 // Padding
 myView.makeFormulas {
-    [.leading, .trailing, .bottom, .top](20) == anotherView
+    [.edge(20)] == anotherView
 	//[.leading(20), .trailing(-20), .bottom(-20), .top(20)] == anotherView
     
 }
