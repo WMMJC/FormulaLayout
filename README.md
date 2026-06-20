@@ -27,11 +27,11 @@ myView.makeFormulas {
 
 Attribute: 
     1. Attribute
-    2. Attribute => Attribute
+    2. Attribute => Attribute // Attribute(<#Attr#>)
     3. Attribute(<#LayoutPriority#>) // Attribute.priority(<#LayoutPriority#>)
     4. Attribute(<#CGFloat#>) // Attribute.constant(<#CGFloat#>)
     5. Attribute(<#String#>) // Attribute.identifier(<#String#>)
-    6. Attribute(p:<#LayoutPriority#>,c:<#CGFloat#>,i:<#String?#>) // Attribute.pci(p:<#LayoutPriority#>,c:<#CGFloat#>,i:<#String?#>)
+    6. Attribute(m:<#Attr#>, p:<#LayoutPriority#>,c:<#CGFloat#>,i:<#String?#>) // Attribute.mpci(m:<#Attr#>,p:<#LayoutPriority#>,c:<#CGFloat#>,i:<#String?#>)
     
 Operator: 
     =>, == ,>=, <=, * , + , -
