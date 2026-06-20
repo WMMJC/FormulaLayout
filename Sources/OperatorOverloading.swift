@@ -30,10 +30,6 @@ public func - (lhs: ViewExpr, rhs: CGFloat) -> ViewExpr { var e = lhs; e.constan
 
 
 // MARK: - [Attr] 操作符重载
-infix operator => : MultiplicationPrecedence
-// [.top => .bottom] or  [.top(.bottom)]
-public func => (lhs: Attr, rhs: Attr) -> Attr { var copy = lhs;copy.targetAttribute = rhs.attribute;return copy; }
-
 // [.top , .bottom] == view
 public func == (lhs: [Attr], rhs: ConstraintTarget) -> ConstraintRule { ConstraintRule(sourceAttrs: lhs, targetItem: rhs) }
 

@@ -40,12 +40,9 @@ public struct Attr {
 }
 extension Attr{
 #if swift(>=5.2)
-    // [.top(.bottom)]
-    public func callAsFunction(_ m:Attr) -> Attr { var copy = self;copy.targetAttribute = m.attribute;return copy; }
     // [.bottom(p:.defaultHigh,c:0, i:"id")]
     public func callAsFunction(m: Attr? = nil,p: LayoutPriority = .required, c: CGFloat = 0,i: String? = nil) -> Attr { mpci(m:m,p:p,c:c,i:i)}
 #else
-    public subscript(_ m:Attr) -> Attr { var copy = self;copy.targetAttribute = m.attribute;return copy; }
     // [.bottom[p:.defaultHigh,c:0, i:"id"]]
     public subscript(m: Attr? = nil,p: LayoutPriority = .required, c: CGFloat = 0,i: String? = nil) -> Attr { mpci(m:m,p:p,c:c,i:i)}
 #endif
