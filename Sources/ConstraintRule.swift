@@ -120,7 +120,7 @@ public struct ConstraintRule {
     
     func generate(for sourceView: ConstraintView) -> [NSLayoutConstraint] {
         @inline(__always)
-        func make(_ attr: Attr, priority: UILayoutPriority, identifier: String?) -> NSLayoutConstraint? {
+        func make(_ attr: Attr, priority: LayoutPriority, identifier: String?) -> NSLayoutConstraint? {
             if attr.ismultiplier || attr.isconstant {
                 assertionFailure("❌❌❌ create layout not support [.constant] or [.multiplier]")
                 return nil
