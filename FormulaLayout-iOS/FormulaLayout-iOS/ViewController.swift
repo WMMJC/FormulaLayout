@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     }
 
     private func setupConstraints() {
-        view1.makeFormulas {
+        view1.makeLayouts {
             [.centerX, .centerY] == view
             [.height("kkkkkk") => .width] == view1 * 2
 //            [.height] == 100
@@ -40,27 +40,27 @@ class ViewController: UIViewController {
         }
 
         //view2.ch(priority: LayoutPriority(1000), axis:.vertical)
-        view2.makeFormulas {
+        view2.makeLayouts {
             [.top] == view1 + 20
             [.leading, .trailing] == view1 + 30
             [.height] <= view1 * 2.5
             //[.bottom(p:.defaultHigh,c:0, i:"")] == view - 15
         }
         
-        label.makeFormulas{
+        label.makeLayouts{
             [.top => .bottom] == view2
             [.leading] == view4
             [.trailing] == view1
             [.height] >= 20
         }
         
-        view3.makeFormulas {
+        view3.makeLayouts {
             [.bottom("xxxxxx") => .top] == view1
             //[.bottom => .top] == view1 - 5
             [.leading, .trailing, .top] == view.safeAreaLayoutGuide
         }
 
-        view4.makeFormulas {
+        view4.makeLayouts {
             //[.leading(20), .trailing(-20), .bottom(-20), .top(20)] == view3
             [.edge(20)] == view3
         }
@@ -68,11 +68,11 @@ class ViewController: UIViewController {
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        self.view3.updateFormula(identifier:"xxxxxx"){
+        self.view3.updateLayout("xxxxxx"){
             [.constant] == -50
             //[.multiplier] == 1.5
         }
-        self.view1.updateFormula(identifier:"llll"){
+        self.view1.updateLayout("llll"){
             [.constant] == 200
         }
         UIView.animate(withDuration: 0.25) {

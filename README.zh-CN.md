@@ -5,7 +5,7 @@
 
 简而言之，使用如下DSL:
 ````swift
-myView.makeFormulas {
+myView.makeLayouts {
     [.leading => .trailing] == targetView * 1.0 + 12
 }
 ````
@@ -21,7 +21,7 @@ myView.makeFormulas {
 # 公式关系图
 
 ````swift
-myView.makeFormulas {
+myView.makeLayouts {
     [Attribute] == view * multiplier + constant
 }
 
@@ -42,60 +42,60 @@ Attribute:
 
 ````swift
 // myView的中心等于anotherView中心
-myView.makeFormulas {
+myView.makeLayouts {
     [.centerX, .centerY] == anotherView
 }
 
 // 设置内边距
-myView.makeFormulas {
+myView.makeLayouts {
     [.edge(20)] == anotherView
 	//[.leading(20), .trailing(-20), .bottom(-20), .top(20)] == anotherView
     
 }
 // 宽高为100
-myView.makeFormulas {
+myView.makeLayouts {
     [.height, .width] == 100
 }
 // 宽高比，height是width的2倍
-myView.makeFormulas {
+myView.makeLayouts {
     [.height => .width] == myView * 2
     [.width] == 100
 }
 
 // 设置偏移为10，myView的左侧等于anotherView的左侧偏移+10
-myView.makeFormulas {
+myView.makeLayouts {
     [.leading] == anotherView + 10 
     //[.leading(10)] == anotherView
     //[.bottom(p:.defaultHigh,c:10, i:"identifier")] == view
 }
 
 // 设置myView的leading，top为anotherView的leading，top且偏移-10
-myView.makeFormulas {
+myView.makeLayouts {
     [.leading,.top] == anotherView - 10 
 }
 
 // 设置myView的高度小于等于anotherView的高度的1.5倍
-myView.makeFormulas {
+myView.makeLayouts {
     [.height] <= anotherView * 1.5
 }
 
 // 设置优先级
-myView.makeFormulas {
+myView.makeLayouts {
     [.bottom(.defaultHigh)] == view.keyboardLayoutGuide
     //[.bottom(p:.defaultHigh,c:10, i:"identifier")] == view
 }
 
 // 设置myView的bottom和left等于anotherView的top和right
-myView.makeFormulas {
+myView.makeLayouts {
     [.bottom => .top,.left => .right] == anotherView
 }
 
 // 绑定identifier
-myView.makeFormulas {
+myView.makeLayouts {
     [.bottom("identifier")] == anotherView
     //[.bottom(p:.defaultHigh,c:10, i:"identifier")] == view
 }
-myView.updateFormula(identifier:"identifier"){
+myView.updateLayout("identifier"){
     [.constant] == -5
     //[.multiplier] == 2.5
 }

@@ -29,7 +29,7 @@ class FormulaLayoutTests: XCTestCase {
     func testSetupLayout(view1: ConstraintView, view2: ConstraintView, isExpanded: Bool) {
         let safeArea = view1.safeAreaLayoutGuide
         //⚠️⚠️⚠️⚠️⚠️⚠️下面的是介绍用法，运行时会崩溃，同一个Attribute只能添加一个约束
-        view1.makeFormulas {
+        view1.makeLayouts {
             // top, bottom, left 都等于 view2
             [.top, .bottom, .left] == view2
             
@@ -64,18 +64,18 @@ class FormulaLayoutTests: XCTestCase {
             // 属性标记
             [.top("topMargin") => .bottom] == view1.safeAreaLayoutGuide
         }
-        view1.updateFormula(identifier: "topMargin") {
+        view1.updateLayout("topMargin") {
             [.constant] == 1.5
         }
     }
     func testUpdateLayout(view: ConstraintView,boxView: ConstraintView, isExpanded: Bool) {
         //    ConstraintView.animate(withDuration: 0.3) {
         // 修改宽度
-        boxView.updateFormula(identifier: "boxWidth") {
+        boxView.updateLayout("boxWidth") {
             [.constant] == 100
         }
         // 修改高度
-        boxView.updateFormula(identifier: "boxHeight") { [.constant] == 100 }
+        boxView.updateLayout("boxHeight") { [.constant] == 100 }
         // 触发布局更新
         //        view.layoutIfNeeded()
         //    }

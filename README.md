@@ -5,7 +5,7 @@
 
 In short, use the following DSL:
 ````swift
-myView.makeFormulas {
+myView.makeLayouts {
     [.leading => .trailing] == targetView * 1.0 + 12
 }
 ````
@@ -21,7 +21,7 @@ Replace it with:
 # Formula relationship diagram
 
 ````swift
-myView.makeFormulas {
+myView.makeLayouts {
     [Attribute] == view * multiplier + constant
 }
 
@@ -43,60 +43,60 @@ Here's some example code:
 
 ````swift
 // The centre of myView is the same as the centre of anotherView
-myView.makeFormulas {
+myView.makeLayouts {
     [.centerX, .centerY] == anotherView
 }
 
 // Padding
-myView.makeFormulas {
+myView.makeLayouts {
     [.edge(20)] == anotherView
 	//[.leading(20), .trailing(-20), .bottom(-20), .top(20)] == anotherView
     
 }
 // width = high = 100
-myView.makeFormulas {
+myView.makeLayouts {
     [.height, .width] == 100
 }
 // Aspect ratio: the height is twice the width
-myView.makeFormulas {
+myView.makeLayouts {
     [.height => .width] == myView * 2
     [.width] == 100
 }
 
 // Set the offset to 10; the left edge of myView will be equal to the left offset of anotherView plus 10
-myView.makeFormulas {
+myView.makeLayouts {
     [.leading] == anotherView + 10 
     //[.leading(10)] == anotherView
     //[.bottom(p:.defaultHigh,c:10, i:"identifier")] == view
 }
 
 // Set the leading and top of myView to the leading and top of anotherView, with an offset of -10
-myView.makeFormulas {
+myView.makeLayouts {
     [.leading,.top] == anotherView - 10 
 }
 
 // Set the height of myView to be less than or equal to 1.5 times the height of anotherView
-myView.makeFormulas {
+myView.makeLayouts {
     [.height] <= anotherView * 1.5
 }
 
 // Set priorities
-myView.makeFormulas {
+myView.makeLayouts {
     [.bottom(.defaultHigh)] == view.keyboardLayoutGuide
     //[.bottom(p:.defaultHigh,c:10, i:"identifier")] == view
 }
 
 // Set the bottom and left properties of myView to the top and right properties of anotherView
-myView.makeFormulas {
+myView.makeLayouts {
     [.bottom => .top,.left => .right] == anotherView
 }
 
 // Bind identifier
-myView.makeFormulas {
+myView.makeLayouts {
     [.bottom("identifier")] == anotherView
     //[.bottom(p:.defaultHigh,c:10, i:"identifier")] == view
 }
-myView.updateFormula(identifier:"identifier"){
+myView.updateLayout("identifier"){
     [.constant] == -5
     //[.multiplier] == 2.5
 }

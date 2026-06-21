@@ -36,7 +36,7 @@ public enum ConstraintsBuilder {
 }
 
 extension ConstraintView {
-    public func makeFormulas(@ConstraintsBuilder builder: () -> [ConstraintRule]) {
+    public func makeLayouts(@ConstraintsBuilder builder: () -> [ConstraintRule]) {
         translatesAutoresizingMaskIntoConstraints = false
         let rules = builder()
         let constraints = rules.flatMap { $0.generate(for: self) }
@@ -44,7 +44,7 @@ extension ConstraintView {
     }
     
     // 更新 constant / multiplier 的约束
-    public func updateFormula(identifier: String,@ConstraintsBuilder builder: () -> [ConstraintRule]) {
+    public func updateLayout(_ identifier: String,@ConstraintsBuilder builder: () -> [ConstraintRule]) {
         let rules = builder()
         if let c = self.findConstraint(identifier: identifier){
             _ = rules.flatMap { $0.update(for: c) }
